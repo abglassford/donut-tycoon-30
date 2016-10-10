@@ -1,4 +1,4 @@
-const databaseName = 'donut-tycoon';
+const databaseName = 'donut_tycoon';
 
 module.exports = {
   development: {
