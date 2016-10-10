@@ -5,8 +5,8 @@ exports.up = function(knex, Promise) {
     table.string('first_name').notNullable();
     table.string('last_name').notNullable();
     table.string('email').notNullable();
-    table.foreign('favorite_donut').notNullable();
-    table.foreign('shop_id').notNullable();
+    table.integer('favorite_donut').references('id').inTable('donut').notNullable();
+    table.integer('shop_id').references('id').inTable('shop').notNullable();
   });
 };
 
