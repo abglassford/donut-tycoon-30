@@ -5,15 +5,33 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       return Promise.all([
         // Inserts seed entries
-        knex('shop_donut').insert({shop_id: 1, donut_id: 1}),
-        knex('shop_donut').insert({shop_id: 2, donut_id: 1}),
-        knex('shop_donut').insert({shop_id: 3, donut_id: 1}),
-        knex('shop_donut').insert({shop_id: 1, donut_id: 2}),
-        knex('shop_donut').insert({shop_id: 2, donut_id: 2}),
-        knex('shop_donut').insert({shop_id: 3, donut_id: 2}),
-        knex('shop_donut').insert({shop_id: 1, donut_id: 3}),
-        knex('shop_donut').insert({shop_id: 2, donut_id: 3}),
-        knex('shop_donut').insert({shop_id: 3, donut_id: 3})
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'The Donut Hole'),
+          donut_id: knex('donut').select('id').where('name', 'Chocolate-Covered-Goodness')}),
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'Hoodoo Doonoots'),
+          donut_id: knex('donut').select('id').where('name', 'Chocolate-Covered-Goodness')}),
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'Sweet Circles'),
+          donut_id: knex('donut').select('id').where('name', 'Chocolate-Covered-Goodness')}),
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'The Donut Hole'),
+          donut_id: knex('donut').select('id').where('name', 'Glazed')}),
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'Hoodoo Doonoots'),
+          donut_id: knex('donut').select('id').where('name', 'Glazed')}),
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'Sweet Circles'),
+          donut_id: knex('donut').select('id').where('name', 'Glazed')}),
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'The Donut Hole'),
+          donut_id: knex('donut').select('id').where('name', 'Rainbow-Puke')}),
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'Hoodoo Doonoots'),
+          donut_id: knex('donut').select('id').where('name', 'Rainbow-Puke')}),
+        knex('shop_donut').insert({
+          shop_id: knex('shops').select('id').where('name', 'Sweet Circles'),
+          donut_id: knex('donut').select('id').where('name', 'Rainbow-Puke')})
       ]);
     });
 };

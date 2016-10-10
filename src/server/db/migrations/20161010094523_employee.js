@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     table.string('last_name').notNullable();
     table.string('email').notNullable();
     table.integer('favorite_donut').references('id').inTable('donut').notNullable();
-    table.integer('shop_id').references('id').inTable('shop').notNullable();
+    table.integer('shop_id').references('id').inTable('shops').notNullable();
   });
 };
 
