@@ -36,60 +36,49 @@ Your app consists of three resources: shops, employees, and donuts.
 
 ### Tables
 
-|Shop
+|shop
 |----------------
 |id
 |name (text)
 |city (text)
 
-
-|Donut
+|donut
 |----------------
 |id
 |name (text)
 |topping (text)
 |price (int)
 
-
-|Shop_donut
+|shop_donut
 |----------------
 |id
 |shop_id (fk)
 |donut_id (fk)
 
-
-|Employee
-|----------------|
+|employee
+|----------------
 |id
 |first_name (text)
 |last_name (text)
 |email (text)
 |favorite_donut (fk)
+|shop_id (fk)
 
 ## Shop Routes and Pages
 
 ### Shop Routes
 
-| Route Name     | Request Method | Example Request URL |  Route                   
-|----------------|----------------|---------------------|----------------------
-| shop index     | `GET`          | `/shops`            |  `/shops`
-| shop show page | `GET`          | `/shops/1`          |  `/shops/:shop_id`
-| shop edit      | `GET`          | `/shops/1/edit`     |  `/shops/:shop_id/edit`
-| shop update    | `PUT/PATCH`    | `/shops/1/`         |  `/shops/:shop_id`
-| shop new page  | `GET`          | `/shops/new`        |  `/shops/new`
-| shop create    | `POST`         | `/shops`            |  `/shops`
-| shop destroy   | `DELETE`       | `/shops/1`          |  `/shops/:shop_id`
+| Route Name     | Method | Example URL       | Route               |
+|----------------|--------|-------------------|---------------------|
+| shop index     | `GET`  | `/shops`          | `/shops`            |
+| shop show page | `GET`  | `/shops/1/show`   | `/shops/:id`        |
+| shop edit      | `GET`  | `/shops/1/edit`   | `/shops/:id/edit`   |
+| shop update    | `POST` | `/shops/edit`     | `/shops/edit`       |
+| shop new page  | `GET`  | `/shops/new`      | `/shops/new`        |
+| shop create    | `POST` | `/shops`          | `/shops`            |
+| shop destroy   | `POST` | `/shops/1/delete` | `/shops/:id/delete` |
 
-
-| Route Name     | Request Method | Example Request URL |  Route                   
-|----------------|----------------|---------------------|----------------------
-| shop employee index page | `GET`  | `/shops/1/employees`            |  `/shops/:shop_id/employees`
-| shop employee show page | `GET`| `/shops/1/employees/1`  |  `/shops/:shop_id/employees/:employee_id`
-| shop employee edit page | `GET`| `/shops/1/employees/1/edit`  |  `/shops/:shop_id/employees/:employee_id/edit`
-| shop employee update | `PUT/PATCH`| `/shops/1/employees/1`  |  `/shops/:shop_id/employees/:employee_id`
-| shop employee new page | `GET`| `/shops/1/employees/new`  |  `/shops/:shop_id/employees/new`
-| shop employee create | `POST`| `/shops/1/employees`  |  `/shops/:shop_id/employees`
-| shop employee destroy | `DELETE`| `/shops/1/employees`  |  `/shops/:shop_id/employees`
+> You can change the methods for update and destroy to `PUT` and `DELETE` with jQuery if you'd like.
 
 ### Shop Pages
 
@@ -106,45 +95,77 @@ Your app consists of three resources: shops, employees, and donuts.
 
 **Shop edit page**
  - Has a form that is populated with a single shop's information, based on the shop id in the route
- - Submit button that goes to the **shop update** route which updates the shop and goes back to the show page for that shop.
+ - Submit button that goes to the **shop update** route which updates the shop and goes back to the show page for that shop
 
 **Shop show page**
  - Shows all of the details of shop including the donuts they carry (comes from the donuts table), and employees (comes from employee table)
- - Has link to **shop employee index**
+ - Has link to **employee show page**
+ - Has link to **donut show page**
 
-**Shop employee index page**
- - Has listing of all of the employees for that shop
- - **The rest of the employee pages are pretty much the same as shop except with employees for that shop_id**
+## Employee Routes and Pages
+
+| Route Name         | Method | Example URL           | Route                  |
+|--------------------|--------|-----------------------|------------------------|
+| employee index     | `GET`  | `/employees`          | `/employees`           |
+| employee show page | `GET`  | `/employees/1/show`   | `/employees/:id`       |
+| employee edit      | `GET`  | `/employees/1/edit`   | `/employees/:id/edit`  |
+| employee update    | `POST` | `/employees/edit`     | `/employees/edit`      |
+| employee new page  | `GET`  | `/employees/new`      | `/employees/new`       |
+| employee create    | `POST` | `/employees`          | `/employees`           |
+| employee destroy   | `POST` | `/employees/1/delete` | `/employees/:id/delete`|
+
+> You can change the methods for update and destroy to `PUT` and `DELETE` with jQuery if you'd like.
+
+ **Employee index page**
+  - Lists all of the employees
+  - Has a button to the new employee page
+  - Each employee listing should be a clickable link to the **employee show page**
+  - Has buttons to the **employee edit page** and the **employee delete route** for each employee
+
+  **Employee new page**
+   - Has a form with form fields that match the columns in your employees table
+   - Submit button goes to the **employee create** route which creates the new employee, and goes back to the employee index page
+
+  **Employee edit page**
+   - Has a form that is populated with a single employee's information, based on the employee id in the route
+   - Submit button that goes to the **employee update** route which updates the employee and goes back to the show page for that employee
+
+  **Employee show page**
+   - Shows all of the details of employee
+   - Has link to **shop show page**
+   - Has link to **donut show page**
 
 ## Donut Routes and Pages
 
 ### Donut Routes
 
-| Route Name     | Request Method | Example Request URL |  Route                   
-|----------------|----------------|---------------------|----------------------
-| donut index     | `GET`          | `/donuts`            |  `/donuts`
-| donut show page | `GET`          | `/donuts/1`          |  `/donuts/:donut_id`
-| donut edit      | `GET`          | `/donuts/1/edit`     |  `/donuts/:donut_id/edit`
-| donut update    | `PUT/PATCH`    | `/donuts/1/`         |  `/donuts/:donut_id`
-| donut new page  | `GET`          | `/donuts/new`        |  `/donuts/new`
-| donut destroy   | `DELETE`       | `/donuts`            |  `/donuts`
-| donut create    | `POST`         | `/donuts`            |  `/donuts`
+| Route Name      | Method | Example URL        | Route                |
+|-----------------|--------|--------------------|----------------------|
+| donut index     | `GET`  | `/donuts`          | `/donuts`            |
+| donut show page | `GET`  | `/donuts/1/show`   | `/donuts/:id`        |
+| donut edit      | `GET`  | `/donuts/1/edit`   | `/donuts/:id/edit`   |
+| donut update    | `POST` | `/donuts/edit`     | `/donuts/edit`       |
+| donut new page  | `GET`  | `/donuts/new`      | `/donuts/new`        |
+| donut create    | `POST` | `/donuts`          | `/donuts`            |
+| donut destroy   | `POST` | `/donuts/1/delete` | `/donuts/:id/delete` |
+
+> You can change the methods for update and destroy to `PUT` and `DELETE` with jQuery if you'd like.
 
 ### Donut Pages
 
 **Donut index page**
-- Lists all of the donuts.
-- Has a button to the new donut page.
+- Lists all of the donuts
+- Has a button to the new donut page
 - Each donut listing should be a clickable link to the **donut show page**.
-- Has buttons to the **donut edit page** and the **donut delete route** for each donut.
+- Has buttons to the **donut edit page** and the **donut delete route** for each donut
 
 **Donut new page**
 - Has a form with form fields that match the columns in your donuts table
-- Submit button goes to the **donut create** route which creates the new donut, and goes back to the index page
+- Submit button goes to the **donut create** route which creates the new donut, and goes back to the donut index page
 
 **Donut edit page**
 - Has a form that is populated with a single donut's information, based on the donut id in the route
-- Submit button that goes to the **donut update** route which updates the donut and goes back to the show page for that donut.
+- Submit button that goes to the **donut update** route which updates the donut and goes back to the show page for that donut
 
 **Donut show page**
 - Shows all of the details of donut including which shops carry it (comes from the shops table)
