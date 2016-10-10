@@ -7,9 +7,7 @@ function getAll (resource) {
   const renderObject = {};
   return knex(resource)
   .then(data => {
-    console.log('hello');
     renderObject[resource] = data;
-    console.log('nothello');
     return renderObject;
   });
 }
@@ -24,7 +22,12 @@ function showOne (resource, id) {
   });
 }
 
-function edit (resource, id, body) {
+function del (resource, id) {
+  return knex(resource).where('id', id)
+  .del();
+}
+
+function editShop (resource, id, body) {
   return knex(resource).where('id', id)
   .update({
     name: body.name_edit,
@@ -32,14 +35,17 @@ function edit (resource, id, body) {
   });
 }
 
-function del (resource, id) {
-  return knex(resource).where('id', id)
-  .del();
+function newShop (resource, body) {
+  return knex(resource).insert({
+    name: body.name_new,
+    city: body.city_new
+  });
 }
 
 module.exports = {
   getAll,
   showOne,
-  edit,
-  del
+  editShop,
+  del,
+  newShop
 };

@@ -4,9 +4,16 @@
 
 {% block content %}
 
-  <div class="container">
-    <h1>{{title}}</h1>
-    <h2>Eat them!</h2>
+<div class="container">
+  <h1>{{title}}</h1>
+  <div class="row col-md-8">
+  {% for donut in donuts%}
+    <div class="col-md-4">
+      <h2><a href="/donuts/{{donut.id}}/show">{{donut.name}}</a></h2>
+      <h3>{{donut.topping}}</h3>
+    </div>
+  {% endfor %}
   </div>
+</div>
 
 {% endblock %}

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../db/knex');
 
-const {getAll, showOne, edit, del} = require('../queries/queries.js');
+const {getAll, showOne, edit, del, createNew} = require('../queries/queries.js');
 const indexController = require('../controllers/index');
 
 router.get('/', getAllRoute);
@@ -21,7 +21,7 @@ function showOneRoute (req, res, next) {
   const id = req.params.id;
   showOne('donuts', id)
   .then(data => {
-    res.render('shop', data);
+    res.render('donut', data);
   });
 }
 
