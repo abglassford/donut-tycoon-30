@@ -13,32 +13,29 @@ function getAll (resource) {
 }
 
 function showOneShop (id) {
-  const renderObject = {};
-  return knex('shops').where('shops.id', id)
-  .innerJoin('shop_donut', 'shops.id', 'shop_donut.shop_id')
-  .innerJoin('donuts', 'donuts.id', 'shop_donut.donut_id')
-  .then(data => {
-    renderObject.shops = data;
-    return renderObject;
-  });
+  return knex('shop_donut').where('shop_donut.shop_id', id)
+    .leftJoin('donuts', 'donuts.id', 'shop_donut.donut_id')
+    .leftJoin('shops', 'shops.id', 'shop_donut.shop_id')
+    .leftJoin('employees', 'employees.shop_id, shops.id')
+    //triple (quadruple?) join not working out
 }
 
 function getShopData (id) {
-  const renderObject = {}
+  const renderObject = {};
   return knex('shops').where('id', id)
-  .innerJoin('shop_donut', 'shops.id', 'shop_donut.shop_id')
+  .innerJoin('shop_donut', 'shops.id', 'shop_donut.shop_id');
 }
 
 function shopDel (paramId) {
-  return knex('shop_donut').where('shop_id' , paramId).del()
+  return knex('shop_donut').where('shop_id', paramId).del();
 }
 
 function emplShopDel (paramId) {
-  return knex('employees').where('shop_id', paramId).del()
+  return knex('employees').where('shop_id', paramId).del();
 }
 
 function del (resource, id) {
-  return knex(resource).where('id', id).del()
+  return knex(resource).where('id', id).del();
 }
 
 function editShop (resource, id, body) {
@@ -49,11 +46,20 @@ function editShop (resource, id, body) {
   });
 }
 
-function newShop (resource, body) {
-  return knex(resource).insert({
-    name: body.name_new,
-    city: body.city_new
-  });
+function newShop (body) {
+  //how do I insert into donuts while inserting into shops?
+  //promise.all?
+  return Promise.all([
+    knex('shops').insert({
+      shop_name: body.shop_name_new,
+      city: body.city_new
+    }),
+    knex('donuts').insert({
+      donut_name: body.donut_name_new,
+      topping: body.topping_new,
+      price: body.price_new
+    })
+  ])
 }
 
 module.exports = {

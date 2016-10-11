@@ -21,8 +21,7 @@ exports.seed = function(knex, Promise) {
           shop_id: knex('shops').select('id').where('shop_name', 'Hoodoo Doonoots'),
           donut_id: knex('donuts').select('id').where('donut_name', 'Glazed')}),
         knex('shop_donut').insert({
-          shop_id: knex('shops').select('id').where('shop_name', 'Sweet Circles'),
-          donut_id: knex('donuts').select('id').where('donut_name', 'Glazed')}),
+          shop_id: knex('shops').select('id').where('shop_name', 'Sweet Circles')}),
         knex('shop_donut').insert({
           shop_id: knex('shops').select('id').where('shop_name', 'The Donut Hole'),
           donut_id: knex('donuts').select('id').where('donut_name', 'Rainbow-Puke')}),
@@ -30,8 +29,7 @@ exports.seed = function(knex, Promise) {
           shop_id: knex('shops').select('id').where('shop_name', 'Hoodoo Doonoots'),
           donut_id: knex('donuts').select('id').where('donut_name', 'Rainbow-Puke')}),
         knex('shop_donut').insert({
-          shop_id: knex('shops').select('id').where('shop_name', 'Sweet Circles'),
-          donut_id: knex('donuts').select('id').where('donut_name', 'Rainbow-Puke')})
+          shop_id: knex('shops').select('id').where('shop_name', 'Sweet Circles')})
       ]);
     });
 };

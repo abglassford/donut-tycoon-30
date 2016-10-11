@@ -20,9 +20,18 @@ function getShopsRoute (req, res, next) {
 
 function showShopRoute (req, res, next) {
   const id = req.params.id;
+  const renderObject = {};
   showOneShop(id)
   .then(data => {
-    res.render('shop', data);
+    renderObject.shops = data;
+    renderObject.shops[0].donut_list = [];
+    data.forEach((el) => {
+      renderObject.shops[0].donut_list.push(el.donut_name);
+    });
+    var redundantArr = {};
+    redundantArr.shops = [];
+    redundantArr.shops.push(renderObject.shops[0]);
+    res.render('shop', redundantArr);
   });
 }
 
@@ -43,18 +52,16 @@ function deleteShopRoute (req, res, next) {
     .then(() => {
       del('shops', id)
       .then(() => {
-        res.redirect('/shops')
+        res.redirect('/shops');
       });
     });
   });
 }
 
 function newShopRoute (req, res, next) {
-  console.log('hit1');
   const body = req.body;
-  newShop('shops', body)
+  newShop(body)
   .then(() => {
-    console.log('hit2');
     res.redirect(`/shops`);
   });
 }

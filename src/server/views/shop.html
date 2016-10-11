@@ -5,11 +5,14 @@
 {% block content %}
 
   <div class="container">
+    <h1>this is shop.html</h1>
     <h1>{{title}}</h1>
     <div class="row col-md-8">
     {% for shop in shops%}
-      <div class="col-md-3">
+      <div class="col-md-2">
+        <h2>{{shop.shop_name}}</h2>
         <h3>{{shop.city}}</h3>
+        <h4>{{shop.donut_list}}</h4>
       </div>
     </div>
     <!-- Button trigger modal -->
