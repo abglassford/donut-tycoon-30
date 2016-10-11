@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('shops', table => {
     table.increments();
-    table.string('name').notNullable();
+    table.string('shop_name').notNullable();
     table.string('city').notNullable();
   });
 };

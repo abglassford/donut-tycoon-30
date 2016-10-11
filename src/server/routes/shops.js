@@ -2,31 +2,31 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../db/knex');
 
-const {getAll, showOne, editShop, del, newShop} = require('../queries/queries.js');
+const {getAll, showOneShop, editShop, del, newShop, shopDel, emplShopDel} = require('../queries/queries.js');
 const indexController = require('../controllers/index');
 
-router.get('/', getAllRoute);
-router.get('/:id/show', showOneRoute);
-router.post('/:id/edit', editRoute);
-router.post('/:id/delete', deleteRoute);
-router.post('/new', newRoute);
+router.get('/', getShopsRoute);
+router.get('/:id/show', showShopRoute);
+router.post('/:id/edit', editShopRoute);
+router.post('/:id/delete', deleteShopRoute);
+router.post('/new', newShopRoute);
 
-function getAllRoute (req, res, next) {
+function getShopsRoute (req, res, next) {
   getAll('shops')
   .then(data => {
     res.render('shops_index', data);
   });
 }
 
-function showOneRoute (req, res, next) {
+function showShopRoute (req, res, next) {
   const id = req.params.id;
-  showOne('shops', id)
+  showOneShop(id)
   .then(data => {
     res.render('shop', data);
   });
 }
 
-function editRoute (req, res, next) {
+function editShopRoute (req, res, next) {
   const id = req.params.id;
   const body = req.body;
   editShop('shops', id, body)
@@ -35,15 +35,21 @@ function editRoute (req, res, next) {
   });
 }
 
-function deleteRoute (req, res, next) {
+function deleteShopRoute (req, res, next) {
   const id = req.params.id;
-  del('shops', id)
-  .then(() => {
-    res.redirect(`/shops`);
+  shopDel(id)
+  .then(()=> {
+    emplShopDel(id)
+    .then(() => {
+      del('shops', id)
+      .then(() => {
+        res.redirect('/shops')
+      });
+    });
   });
 }
 
-function newRoute (req, res, next) {
+function newShopRoute (req, res, next) {
   console.log('hit1');
   const body = req.body;
   newShop('shops', body)

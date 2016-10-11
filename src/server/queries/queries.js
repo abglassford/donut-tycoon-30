@@ -12,19 +12,33 @@ function getAll (resource) {
   });
 }
 
-function showOne (resource, id) {
+function showOneShop (id) {
   const renderObject = {};
-  return knex(resource).where('id', id)
+  return knex('shops').where('shops.id', id)
+  .innerJoin('shop_donut', 'shops.id', 'shop_donut.shop_id')
+  .innerJoin('donuts', 'donuts.id', 'shop_donut.donut_id')
   .then(data => {
-    renderObject[resource] = data;
-    renderObject.title = data[0].name;
+    renderObject.shops = data;
     return renderObject;
   });
 }
 
+function getShopData (id) {
+  const renderObject = {}
+  return knex('shops').where('id', id)
+  .innerJoin('shop_donut', 'shops.id', 'shop_donut.shop_id')
+}
+
+function shopDel (paramId) {
+  return knex('shop_donut').where('shop_id' , paramId).del()
+}
+
+function emplShopDel (paramId) {
+  return knex('employees').where('shop_id', paramId).del()
+}
+
 function del (resource, id) {
-  return knex(resource).where('id', id)
-  .del();
+  return knex(resource).where('id', id).del()
 }
 
 function editShop (resource, id, body) {
@@ -44,8 +58,10 @@ function newShop (resource, body) {
 
 module.exports = {
   getAll,
-  showOne,
+  showOneShop,
   editShop,
   del,
-  newShop
+  newShop,
+  shopDel,
+  emplShopDel
 };

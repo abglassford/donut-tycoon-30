@@ -6,15 +6,15 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
         // Inserts seed entries
         knex('donuts').insert({
-          name: 'Chocolate-Covered-Goodness',
+          donut_name: 'Chocolate-Covered-Goodness',
           topping: 'Chocolate Icing',
           price: 3}),
         knex('donuts').insert({
-          name: 'Rainbow-Puke',
+          donut_name: 'Rainbow-Puke',
           topping: 'Rainbow Sprinkles',
           price: 4}),
         knex('donuts').insert({
-          name: 'Glazed',
+          donut_name: 'Glazed',
           topping: 'Glaze',
           price: 2})
       ]);

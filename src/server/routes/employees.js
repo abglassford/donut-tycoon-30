@@ -9,18 +9,17 @@ router.get('/', getAllRoute);
 router.get('/:id/show', showOneRoute);
 router.post('/:id/edit', editRoute);
 router.post('/:id/delete', deleteRoute);
-router.post('/new', newRoute);
 
 function getAllRoute (req, res, next) {
-  getAll('donuts')
+  getAll('employees')
   .then(data => {
-    res.render('donuts_index', data);
+    res.render('employees_index', data);
   });
 }
 
 function showOneRoute (req, res, next) {
   const id = req.params.id;
-  showOne('donuts', id)
+  showOne('employees', id)
   .then(data => {
     res.render('donut', data);
   });
@@ -29,22 +28,18 @@ function showOneRoute (req, res, next) {
 function editRoute (req, res, next) {
   const id = req.params.id;
   const body = req.body;
-  edit('donuts', id, body)
+  edit('employees', id, body)
   .then(() => {
-    res.redirect(`/donuts/${id}/show`);
+    res.redirect(`/employee/${id}/show`);
   });
 }
 
 function deleteRoute (req, res, next) {
   const id = req.params.id;
-  del('donuts', id)
+  del('employees', id)
   .then(() => {
-    res.redirect(`/donuts`);
+    res.redirect(`/employee`);
   });
-}
-
-function newRoute (req, res, next) {
-  console.log('hi');
 }
 
 module.exports = router;

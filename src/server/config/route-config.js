@@ -7,13 +7,14 @@
     // *** routes *** //
     const routes = require('../routes/index');
     const donutRoutes = require('../routes/donuts');
-    const shopsRoutes = require('../routes/shops');
+    const shopRoutes = require('../routes/shops');
+    const employeeRoutes = require('../routes/employees');
 
     // *** register routes *** //
     app.use('/', routes);
     app.use('/donuts', donutRoutes);
-    app.use('/shops', shopsRoutes);
-
+    app.use('/shops', shopRoutes);
+    app.use('/employees', employeeRoutes);
   };
 
 })(module.exports);
